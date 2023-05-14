@@ -30,7 +30,7 @@ export class Monster extends Physics.Arcade.Sprite {
         this.currentWayPointIndex = this.currentWayPointIndex + 1;
 
         if(this.currentWayPointIndex >= this.waypoints.length){
-            this.destroy(true)
+            this.destroy(true);
             return
         }
 

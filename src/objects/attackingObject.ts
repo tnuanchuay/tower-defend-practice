@@ -19,10 +19,6 @@ export class AttackingObject extends Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.addToUpdateList();
-        this.scene.time.addEvent({
-            delay:1200,
-            callback: () => this.destroy(true)
-        });
     }
 
     override preUpdate = (time, delta) => {
@@ -30,6 +26,11 @@ export class AttackingObject extends Physics.Arcade.Sprite {
 
         if (this.scene.physics.overlap(this, this.monster.gameObject)){
             this.monster.gameObject.destroy(true);
+            this.destroy(true);
+            return
+        }
+
+        if(!this.monster.gameObject.active) {
             this.destroy(true);
             return
         }
