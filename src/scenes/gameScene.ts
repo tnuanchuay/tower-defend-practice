@@ -1,14 +1,12 @@
 import {Scene} from 'phaser';
 import {availableSlot} from "./slot";
 import {Slot} from "../objects/slot";
-import SpriteWithDynamicBody = Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
 import {Waypoint} from "./waypoint";
+import {Monster} from "../objects/monster";
+import {AttackingObject} from "../objects/attackingObject";
 
 export class GameScene extends Scene {
-    private slots: Slot[];
-    private monster: SpriteWithDynamicBody;
-    private currentWayPointIndex = 0;
-
+    private slots: Slot[] = [];
     private readonly waypoints: Waypoint[] = [
         {x: -32, y: 76},
         {x: 316, y: 76},
@@ -32,38 +30,29 @@ export class GameScene extends Scene {
         this.load.spritesheet('available_slot', 'assets/available.png', {frameWidth: 60, frameHeight: 60});
         this.load.spritesheet('tower', 'assets/tower.png', {frameWidth: 60, frameHeight: 60});
         this.load.spritesheet('monster1', 'assets/monster1.png', {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet('arrow', 'assets/arrow.png', {frameWidth: 12, frameHeight: 5});
     }
 
     create = () => {
-        const {width, height} = this.game.canvas;
         const terrain = this.add.sprite(0, 0, 'terrain');
         terrain.setOrigin(0, 0);
 
         this.slots = availableSlot.map(i => new Slot(this, i.x, i.y));
         this.slots.forEach(i => i.create());
-        this.monster = this.physics.add.sprite(this.waypoints[0].x, this.waypoints[0].y, 'monster1');
-        this.monster.setOrigin(0, 0);
-        this.moveToNextWaypoint();
+        new Monster(this, this.waypoints);
+
+        this.time.addEvent({
+            delay: 500,
+            callback: () => {
+                new Monster(this, this.waypoints);
+            },
+            callbackScope: this,
+            loop: true,
+        });
     }
 
     update = () => {
-
-    }
-
-    moveToNextWaypoint = () => {
-        this.currentWayPointIndex = this.currentWayPointIndex + 1;
-        if(this.currentWayPointIndex >= this.waypoints.length){
-            return
-        }
-
-        const distance = Phaser.Math.Distance.Between(this.monster.x, this.monster.y, this.waypoints[this.currentWayPointIndex].x, this.waypoints[this.currentWayPointIndex].y);
-        const duration = distance / 0.2;
-        this.tweens.add({
-            targets: this.monster,
-            x: this.waypoints[this.currentWayPointIndex].x,
-            y: this.waypoints[this.currentWayPointIndex].y,
-            duration: duration,
-            onComplete: this.moveToNextWaypoint
-        });
+        // this.slots.forEach(i => i.update());
+        // this.attackingObjects.forEach(i => i.update());
     }
 }
