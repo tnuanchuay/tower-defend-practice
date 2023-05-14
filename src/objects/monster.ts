@@ -10,7 +10,6 @@ export class Monster extends Physics.Arcade.Sprite {
     constructor(scene: Scene, waypoints: Waypoint[]) {
         const {x, y} = waypoints[0];
         super(scene, x + (60*0.25), y + (60*0.25), 'monster1');
-
         this.waypoints = waypoints;
         this.currentWayPointIndex = 0;
         this.setData("type", "monster");
@@ -23,13 +22,15 @@ export class Monster extends Physics.Arcade.Sprite {
         this.moveToNextWaypoint();
         this.on('destroy', () => {
             this.latestTween.stop();
-        })
+        });
     }
+
 
     moveToNextWaypoint = () => {
         this.currentWayPointIndex = this.currentWayPointIndex + 1;
 
         if(this.currentWayPointIndex >= this.waypoints.length){
+            this.scene.data.inc("lives", -1);
             this.destroy(true);
             return
         }

@@ -1,8 +1,5 @@
 import {Physics, Scene} from "phaser";
-import {Monster} from "./monster";
-import Tween = Phaser.Tweens.Tween;
 import {Slot} from "./slot";
-import GameObject = Phaser.GameObjects.GameObject;
 
 export class AttackingObject extends Physics.Arcade.Sprite {
     private readonly monster: Phaser.Physics.Arcade.Body;
@@ -24,13 +21,16 @@ export class AttackingObject extends Physics.Arcade.Sprite {
     override preUpdate = (time, delta) => {
         super.preUpdate(time, delta);
 
-        if (this.scene.physics.overlap(this, this.monster.gameObject)){
-            this.monster.gameObject.destroy(true);
+        if(this.monster == undefined || this.monster.gameObject == undefined || !this.monster.gameObject.active) {
             this.destroy(true);
             return
         }
 
-        if(!this.monster.gameObject.active) {
+        if (this.scene.physics.overlap(this, this.monster.gameObject)){
+            this.scene.data.inc("kills");
+            this.scene.data.inc("money", 10);
+
+            this.monster.gameObject.destroy(true);
             this.destroy(true);
             return
         }

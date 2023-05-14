@@ -34,17 +34,22 @@ export class Slot extends Physics.Arcade.Sprite implements ISlot {
         this.scene.physics.add.existing(this, true);
         this.setInteractive();
         this.on('pointerdown', () => {
+            const money = this.scene.data.get("money");
+            if(money < 150){
+                return;
+            }
+
             this.setTexture('tower');
             this.building = Building.Tower;
-            this.scene.add.circle(this.x + (60 * 0.5), this.y + (60 * 0.5), 150, 0xff0000, 0.1);
-
             this.attackTimer = this.scene.time.addEvent({
                 startAt: 0,
-                delay: 1000,  // 1 second cooldown
+                delay: 1000,
                 callback: this.attack,
                 callbackScope: this,
                 loop: true
             });
+
+            this.scene.data.inc('money', -150);
         });
     }
 

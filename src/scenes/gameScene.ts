@@ -1,28 +1,15 @@
 import {Scene} from 'phaser';
-import {availableSlot} from "./slot";
-import {Slot} from "../objects/slot";
-import {Waypoint} from "./waypoint";
 import {Monster} from "../objects/monster";
-import {AttackingObject} from "../objects/attackingObject";
+import {HUD} from "../objects/hud";
+import {Map} from '../maps/map';
+import {Map1} from "../maps/map1";
 
-export class GameScene extends Scene {
-    private slots: Slot[] = [];
-    private readonly waypoints: Waypoint[] = [
-        {x: -32, y: 76},
-        {x: 316, y: 76},
-        {x: 316, y: 376},
-        {x: 76, y: 376},
-        {x: 76, y: 496},
-        {x: 736, y: 496},
-        {x: 736, y: 376},
-        {x: 496, y: 376},
-        {x: 496, y: 76},
-        {x: 736, y: 76},
-        {x: 840, y: 76},
-    ]
+export class GameScene extends Scene{
+    private hud: HUD;
+    private map: Map;
 
     constructor() {
-        super('BlankScene');
+        super('BattleScene');
     }
 
     preload = () => {
@@ -34,25 +21,19 @@ export class GameScene extends Scene {
     }
 
     create = () => {
-        const terrain = this.add.sprite(0, 0, 'terrain');
-        terrain.setOrigin(0, 0);
+        this.hud = new HUD(this);
+        this.map = new Map1(this);
 
-        this.slots = availableSlot.map(i => new Slot(this, i.x, i.y));
-        this.slots.forEach(i => i.create());
-        new Monster(this, this.waypoints);
-
-        this.time.addEvent({
-            delay: 500,
-            callback: () => {
-                new Monster(this, this.waypoints);
-            },
-            callbackScope: this,
-            loop: true,
-        });
+        this.data.set("lives", 5);
+        this.data.set("money", 150);
+        this.data.set("kills", 0);
     }
 
     update = () => {
-        // this.slots.forEach(i => i.update());
-        // this.attackingObjects.forEach(i => i.update());
+        this.hud.update();
+        const lives = this.data.get('lives');
+        if(lives <= 0){
+            this.scene.start('GameOver');
+        }
     }
 }
