@@ -25,7 +25,6 @@ export class Monster extends Physics.Arcade.Sprite {
         });
     }
 
-
     moveToNextWaypoint = () => {
         this.currentWayPointIndex = this.currentWayPointIndex + 1;
 

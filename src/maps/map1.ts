@@ -5,10 +5,11 @@ import {Slot} from "../objects/slot";
 import {Scene} from "phaser";
 import {Wave} from "../scenes/wave";
 import {Monster} from "../objects/monster";
+import GameObject = Phaser.GameObjects.GameObject;
+import TimerEvent = Phaser.Time.TimerEvent;
 
 
-export class Map1 implements Map{
-    private scene: Scene
+export class Map1 extends GameObject implements Map{
     waypoints: Waypoint[] = [
         {x: -32, y: 76},
         {x: 316, y: 76},
@@ -366,25 +367,71 @@ export class Map1 implements Map{
     ]
     slots: Slot[] = [];
 
+    currentTimeEvent: TimerEvent;
+
     private waves: Wave[] = [
-        {enemies: [{ type: "monster", quantity: 20, spawnInterval: 1000 }, { type: "monster", quantity: 5, spawnInterval: 300 }]},
-        {enemies: [{ type: "monster", quantity: 30, spawnInterval: 500 }, { type: "monster", quantity: 10, spawnInterval: 250 }]},
+        {enemies: [{ type: "monster", quantity: 30, spawnInterval: 800 }, { type: "monster", quantity: 10, spawnInterval: 300 }]},
+        {enemies: [{ type: "monster", quantity: 30, spawnInterval: 700 }, { type: "monster", quantity: 15, spawnInterval: 250 }]},
+        {enemies: [{ type: "monster", quantity: 30, spawnInterval: 600 }, { type: "monster", quantity: 15, spawnInterval: 200 }]},
     ];
 
     private currentWave: number = 0;
     private currentSection: number = 0;
 
     constructor(scene: Scene) {
-        this.scene = scene;
+        super(scene, "map1")
+
         const terrain = scene.add.sprite(0, 0, 'terrain');
         terrain.setOrigin(0, 0);
         this.slots = this.availableSlots.map(i => new Slot(scene, i.x, i.y));
         this.slots.forEach(i => i.create());
         this.createEnemies();
+        this.addToUpdateList()
+    }
+
+    preUpdate = () => {
+        if (this.currentTimeEvent.getOverallRemaining() != 0){
+            return;
+        }
+
+        const enemies = this.scene.children.getChildren().filter(item => item instanceof Monster);
+
+        if((this.currentWave === this.waves.length - 1) && this.currentSection === this.waves[this.currentWave].enemies.length - 1 && enemies.length === 0) {
+            this.scene.scene.start('GameOver');
+            return;
+        }
+
+        if(this.currentSection === this.waves[this.currentWave].enemies.length - 1 && enemies.length === 0) {
+            this.nextLevel();
+            return;
+        }
+
+        if(this.currentSection < this.waves[this.currentWave].enemies.length - 1){
+            this.nextSection();
+        }
+    }
+
+    nextSection = () => {
+        this.currentSection = this.currentSection + 1;
+        this.createEnemies();
+    }
+
+    nextLevel = () => {
+        this.currentTimeEvent = this.scene.time.addEvent({
+            delay: 5000,
+            callback: () => {
+                this.currentWave = this.currentWave + 1;
+                this.currentSection = 0;
+                this.createEnemies();
+            },
+            repeat: 0,
+            loop: false,
+        });
     }
 
     createEnemies = () => {
-        const tw = this.scene.time.addEvent({
+        console.log(this.currentWave, this.currentSection, this.waves[this.currentWave].enemies[this.currentSection].spawnInterval);
+        this.currentTimeEvent = this.scene.time.addEvent({
             startAt: 0,
             delay: this.waves[this.currentWave].enemies[this.currentSection].spawnInterval,
             callback: () => {

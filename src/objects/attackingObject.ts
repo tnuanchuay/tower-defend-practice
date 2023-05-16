@@ -18,8 +18,7 @@ export class AttackingObject extends Physics.Arcade.Sprite {
         this.addToUpdateList();
     }
 
-    override preUpdate = (time, delta) => {
-        super.preUpdate(time, delta);
+    override preUpdate = () => {
 
         if(this.monster == undefined || this.monster.gameObject == undefined || !this.monster.gameObject.active) {
             this.destroy(true);
