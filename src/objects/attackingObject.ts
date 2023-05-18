@@ -1,18 +1,21 @@
 import {Physics, Scene} from "phaser";
 import {Slot} from "./slot";
+import {Monster} from "./monster";
 
 export class AttackingObject extends Physics.Arcade.Sprite {
-    private readonly monster: Phaser.Physics.Arcade.Body;
+    private readonly monster: Monster;
     private readonly tower: Slot;
+    private readonly damage: number;
 
-    constructor(scene: Scene, texture: string, tower: Slot, monster: Phaser.Physics.Arcade.Body) {
+    constructor(scene: Scene, texture: string, tower: Slot, monster: Phaser.Physics.Arcade.Body, damage: number) {
         const {x, y} = tower;
         super(scene, x, y, texture);
 
-        this.monster = monster;
+        this.monster = (monster.gameObject as Monster);
         this.tower = tower;
-        this.setData("type", "attackingObject");
+        this.damage = damage;
 
+        this.setData("type", "attackingObject");
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.addToUpdateList();
@@ -20,16 +23,13 @@ export class AttackingObject extends Physics.Arcade.Sprite {
 
     override preUpdate = () => {
 
-        if(this.monster == undefined || this.monster.gameObject == undefined || !this.monster.gameObject.active) {
+        if(this.monster == undefined|| !this.monster.active) {
             this.destroy(true);
             return
         }
 
-        if (this.scene.physics.overlap(this, this.monster.gameObject)){
-            this.scene.data.inc("kills");
-            this.scene.data.inc("money", 10);
-
-            this.monster.gameObject.destroy(true);
+        if (this.scene.physics.overlap(this, this.monster)){
+            this.monster.getDamage(this.damage);
             this.destroy(true);
             return
         }

@@ -58,7 +58,7 @@ export class Slot extends Physics.Arcade.Sprite implements ISlot {
         for(let i = 0; i < objectInRange.length; i++) {
             const t = objectInRange[i].gameObject.getData("type") || "";
             if (t === "monster") {
-                new AttackingObject(this.scene, 'arrow', this, objectInRange[i]);
+                new AttackingObject(this.scene, 'arrow', this, objectInRange[i], 10);
                 return
             }
         }

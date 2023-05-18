@@ -66,7 +66,7 @@ export class EnemyGenerator extends GameObject{
             startAt: 0,
             delay: this.waves[this.currentWave].enemies[this.currentSection].spawnInterval,
             callback: () => {
-                new Monster(this.scene, this.waypoints);
+                new Monster(this.scene, this.waypoints, 0.1, 20);
             },
             callbackScope: this,
             repeat: this.waves[this.currentWave].enemies[this.currentSection].quantity - 1,

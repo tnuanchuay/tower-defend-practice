@@ -1,5 +1,4 @@
 import {Scene} from 'phaser';
-import {Monster} from "../objects/monster";
 import {HUD} from "../objects/hud";
 import {Map} from '../maps/map';
 import {Map1} from "../maps/map1";
@@ -25,7 +24,7 @@ export class GameScene extends Scene{
         this.map = new Map1(this);
 
         this.data.set("lives", 5);
-        this.data.set("money", 150);
+        this.data.set("money", 300);
         this.data.set("kills", 0);
     }
 
