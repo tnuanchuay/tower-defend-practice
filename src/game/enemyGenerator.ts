@@ -4,6 +4,7 @@ import GameObject = Phaser.GameObjects.GameObject;
 import {Monster} from "../objects/monster";
 import TimerEvent = Phaser.Time.TimerEvent;
 import {Waypoint} from "./waypoint";
+import {monsterConfig} from "./monsterlist";
 
 export class EnemyGenerator extends GameObject{
     private waves: Wave[]
@@ -28,7 +29,7 @@ export class EnemyGenerator extends GameObject{
         const enemies = this.scene.children.getChildren().filter(item => item instanceof Monster);
 
         if((this.currentWave === this.waves.length - 1) && this.currentSection === this.waves[this.currentWave].enemies.length - 1 && enemies.length === 0) {
-            this.scene.scene.start('GameOver');
+            this.scene.scene.start('GameClear');
             return;
         }
 
@@ -61,12 +62,16 @@ export class EnemyGenerator extends GameObject{
     }
 
     createEnemies = () => {
-        console.log(this.currentWave, this.currentSection, this.waves[this.currentWave].enemies[this.currentSection].spawnInterval);
+        const spawnInterval = this.waves[this.currentWave].enemies[this.currentSection].spawnInterval;
+        const type = this.waves[this.currentWave].enemies[this.currentSection].type;
+
+        console.log(this.currentWave, this.currentSection, type, spawnInterval);
         this.currentTimeEvent = this.scene.time.addEvent({
             startAt: 0,
             delay: this.waves[this.currentWave].enemies[this.currentSection].spawnInterval,
             callback: () => {
-                new Monster(this.scene, this.waypoints, 0.1, 20);
+                const config = monsterConfig[type];
+                new Monster(this.scene, this.waypoints, config.speed, config.hp);
             },
             callbackScope: this,
             repeat: this.waves[this.currentWave].enemies[this.currentSection].quantity - 1,

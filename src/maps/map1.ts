@@ -8,7 +8,7 @@ import GameObject = Phaser.GameObjects.GameObject;
 import {EnemyGenerator} from "../game/enemyGenerator";
 
 
-export class Map1 extends GameObject implements Map{
+export class Map1 extends GameObject implements Map {
     waypoints: Waypoint[] = [
         {x: -32, y: 76},
         {x: 316, y: 76},
@@ -35,61 +35,61 @@ export class Map1 extends GameObject implements Map{
         },
         {
             x: 120,
-            y : 0
+            y: 0
         },
         {
             x: 180,
-            y : 0
+            y: 0
         },
         {
             x: 240,
-            y : 0
+            y: 0
         },
         {
             x: 300,
-            y : 0
+            y: 0
         },
         {
             x: 360,
-            y : 0
+            y: 0
         },
         {
             x: 420,
-            y : 0
+            y: 0
         },
         {
             x: 480,
-            y : 0
+            y: 0
         },
         {
             x: 540,
-            y : 0
+            y: 0
         },
         {
             x: 600,
-            y : 0
+            y: 0
         },
         {
             x: 660,
-            y : 0
+            y: 0
         },
         {
             x: 720,
-            y : 0
+            y: 0
         },
         {
             x: 780,
-            y : 0
+            y: 0
         },
 
         // 2
         {
             x: 360,
-            y : 60
+            y: 60
         },
         {
             x: 420,
-            y : 60
+            y: 60
         },
 
         // 3
@@ -103,79 +103,79 @@ export class Map1 extends GameObject implements Map{
         },
         {
             x: 120,
-            y : 120
+            y: 120
         },
         {
             x: 180,
-            y : 120
+            y: 120
         },
         {
             x: 240,
-            y : 120
+            y: 120
         },
         {
             x: 360,
-            y : 120
+            y: 120
         },
         {
             x: 420,
-            y : 120
+            y: 120
         },
         {
             x: 540,
-            y : 120
+            y: 120
         },
         {
             x: 600,
-            y : 120
+            y: 120
         },
         {
             x: 660,
-            y : 120
+            y: 120
         },
         {
             x: 720,
-            y : 120
+            y: 120
         },
         {
             x: 780,
-            y : 120
+            y: 120
         },
 
         // 4
         {
             x: 240,
-            y : 180
+            y: 180
         },
         {
             x: 360,
-            y : 180
+            y: 180
         },
         {
             x: 420,
-            y : 180
+            y: 180
         },
         {
             x: 540,
-            y : 180
+            y: 180
         },
 
         // 5
         {
             x: 240,
-            y : 240
+            y: 240
         },
         {
             x: 360,
-            y : 240
+            y: 240
         },
         {
             x: 420,
-            y : 240
+            y: 240
         },
         {
             x: 540,
-            y : 240
+            y: 240
         },
 
         // 6
@@ -249,51 +249,51 @@ export class Map1 extends GameObject implements Map{
         // 8
         {
             x: 0,
-            y : 420
+            y: 420
         },
         {
             x: 120,
-            y : 420
+            y: 420
         },
         {
             x: 180,
-            y : 420
+            y: 420
         },
         {
             x: 240,
-            y : 420
+            y: 420
         },
         {
             x: 300,
-            y : 420
+            y: 420
         },
         {
             x: 360,
-            y : 420
+            y: 420
         },
         {
             x: 420,
-            y : 420
+            y: 420
         },
         {
             x: 480,
-            y : 420
+            y: 420
         },
         {
             x: 540,
-            y : 420
+            y: 420
         },
         {
             x: 600,
-            y : 420
+            y: 420
         },
         {
             x: 660,
-            y : 420
+            y: 420
         },
         {
             x: 780,
-            y : 420
+            y: 420
         },
 
         // 9
@@ -369,9 +369,46 @@ export class Map1 extends GameObject implements Map{
     enemyGenerator: EnemyGenerator;
 
     private waves: Wave[] = [
-        {enemies: [{ type: "monster", quantity: 30, spawnInterval: 800 }, { type: "monster", quantity: 10, spawnInterval: 300 }]},
-        {enemies: [{ type: "monster", quantity: 30, spawnInterval: 700 }, { type: "monster", quantity: 15, spawnInterval: 250 }]},
-        {enemies: [{ type: "monster", quantity: 30, spawnInterval: 600 }, { type: "monster", quantity: 15, spawnInterval: 200 }]},
+        {
+            enemies: [
+                {type: "simple1", quantity: 10, spawnInterval: 700},
+                {type: "simple1", quantity: 10, spawnInterval: 300}
+            ]
+        },
+        {
+            enemies: [
+                {type: "simple2", quantity: 30, spawnInterval: 600},
+                {type: "simple1", quantity: 15, spawnInterval: 250}]
+        },
+        {
+            enemies: [
+                {type: "simple3", quantity: 10, spawnInterval: 500},
+                {type: "speed1", quantity: 2, spawnInterval: 200},
+                {type: "simple3", quantity: 15, spawnInterval: 500},
+                {type: "simple2", quantity: 15, spawnInterval: 200}
+            ]
+        },
+        {
+            enemies: [
+                {type: "simple3", quantity: 15, spawnInterval: 500},
+                {type: "speed1", quantity: 2, spawnInterval: 200},
+                {type: "simple3", quantity: 15, spawnInterval: 500},
+                {type: "speed2", quantity: 2, spawnInterval: 200},
+                {type: "simple3", quantity: 15, spawnInterval: 200}
+            ]
+        },
+        {
+            enemies: [
+                {type: "speed2", quantity: 2, spawnInterval: 200},
+                {type: "simple3", quantity: 30, spawnInterval: 500},
+                {type: "speed2", quantity: 2, spawnInterval: 200},
+                {type: "simple3", quantity: 15, spawnInterval: 200},
+                {type: "speed2", quantity: 2, spawnInterval: 200},
+            ]
+        },
+        {
+            enemies: [{type: "boss1", quantity: 1, spawnInterval: 1}]
+        },
     ];
 
     constructor(scene: Scene) {

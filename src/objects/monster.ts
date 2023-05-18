@@ -34,6 +34,7 @@ export class Monster extends Physics.Arcade.Sprite {
 
     getDamage = (damage: number) => {
         this.hp = this.hp - damage;
+        console.log(this.hp);
         if(this.hp <= 0){
             this.die()
         }
