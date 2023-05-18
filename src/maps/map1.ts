@@ -1,12 +1,10 @@
-import {Waypoint} from "../scenes/waypoint";
-import {AvailableSlot} from "../scenes/slot";
+import {Waypoint} from "../game/waypoint";
+import {AvailableSlot} from "../game/slot";
 import {Map} from "./map";
 import {Slot} from "../objects/slot";
 import {Scene} from "phaser";
-import {Wave} from "../scenes/wave";
-import {Monster} from "../objects/monster";
+import {Wave} from "../game/wave";
 import GameObject = Phaser.GameObjects.GameObject;
-import TimerEvent = Phaser.Time.TimerEvent;
 import {EnemyGenerator} from "../game/enemyGenerator";
 
 

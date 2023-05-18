@@ -1,5 +1,5 @@
-import {AvailableSlot} from "../scenes/slot";
-import {Waypoint} from "../scenes/waypoint";
+import {AvailableSlot} from "../game/slot";
+import {Waypoint} from "../game/waypoint";
 import {Slot} from "../objects/slot";
 
 export interface Map {

@@ -1,9 +1,9 @@
-import {Wave} from "../scenes/wave";
+import {Wave} from "./wave";
 import {Scene} from "phaser";
 import GameObject = Phaser.GameObjects.GameObject;
 import {Monster} from "../objects/monster";
 import TimerEvent = Phaser.Time.TimerEvent;
-import {Waypoint} from "../scenes/waypoint";
+import {Waypoint} from "./waypoint";
 
 export class EnemyGenerator extends GameObject{
     private waves: Wave[]

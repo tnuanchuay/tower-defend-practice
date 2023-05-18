@@ -1,5 +1,5 @@
 import {Physics, Scene} from "phaser";
-import {Waypoint} from "../scenes/waypoint";
+import {Waypoint} from "../game/waypoint";
 import Tween = Phaser.Tweens.Tween;
 
 export class Monster extends Physics.Arcade.Sprite {
