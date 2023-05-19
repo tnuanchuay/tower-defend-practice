@@ -24,7 +24,7 @@ export class GameScene extends Scene{
         this.map = new Map1(this);
 
         this.data.set("lives", 5);
-        this.data.set("money", 250);
+        this.data.set("money", 400);
         this.data.set("kills", 0);
     }
 

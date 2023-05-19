@@ -371,43 +371,43 @@ export class Map1 extends GameObject implements Map {
     private waves: Wave[] = [
         {
             enemies: [
-                {type: "simple1", quantity: 10, spawnInterval: 700},
-                {type: "simple1", quantity: 10, spawnInterval: 300}
+                {type: "simple1", quantity: 50, spawnInterval: 600},
+                {type: "simple1", quantity: 30, spawnInterval: 200}
             ]
         },
         {
             enemies: [
-                {type: "simple2", quantity: 30, spawnInterval: 600},
-                {type: "simple1", quantity: 15, spawnInterval: 250}]
+                {type: "simple1", quantity: 50, spawnInterval: 600},
+                {type: "simple2", quantity: 30, spawnInterval: 250}]
         },
         {
             enemies: [
-                {type: "simple3", quantity: 10, spawnInterval: 500},
-                {type: "speed1", quantity: 2, spawnInterval: 200},
-                {type: "simple3", quantity: 15, spawnInterval: 500},
-                {type: "simple2", quantity: 15, spawnInterval: 200}
+                {type: "simple3", quantity: 50, spawnInterval: 500},
+                {type: "speed1", quantity: 10, spawnInterval: 200},
+                {type: "simple3", quantity: 50, spawnInterval: 500},
+                {type: "simple2", quantity: 30, spawnInterval: 200}
             ]
         },
         {
             enemies: [
-                {type: "simple3", quantity: 15, spawnInterval: 500},
-                {type: "speed1", quantity: 2, spawnInterval: 200},
-                {type: "simple3", quantity: 15, spawnInterval: 500},
-                {type: "speed2", quantity: 2, spawnInterval: 200},
-                {type: "simple3", quantity: 15, spawnInterval: 200}
+                {type: "simple3", quantity: 70, spawnInterval: 500},
+                {type: "speed1", quantity: 10, spawnInterval: 200},
+                {type: "simple3", quantity: 70, spawnInterval: 500},
+                {type: "speed2", quantity: 10, spawnInterval: 200},
+                {type: "simple3", quantity: 100, spawnInterval: 200}
             ]
         },
         {
             enemies: [
-                {type: "speed2", quantity: 2, spawnInterval: 200},
-                {type: "simple3", quantity: 30, spawnInterval: 500},
-                {type: "speed2", quantity: 2, spawnInterval: 200},
-                {type: "simple3", quantity: 15, spawnInterval: 200},
-                {type: "speed2", quantity: 2, spawnInterval: 200},
+                {type: "speed2", quantity: 20, spawnInterval: 200},
+                {type: "simple3", quantity: 70, spawnInterval: 500},
+                {type: "speed2", quantity: 50, spawnInterval: 200},
+                {type: "simple3", quantity: 70, spawnInterval: 200},
+                {type: "speed2", quantity: 50, spawnInterval: 200},
             ]
         },
         {
-            enemies: [{type: "boss1", quantity: 1, spawnInterval: 1}]
+            enemies: [{type: "boss1", quantity: 2, spawnInterval: 100}]
         },
     ];
 

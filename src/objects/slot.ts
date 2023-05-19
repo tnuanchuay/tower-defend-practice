@@ -35,7 +35,7 @@ export class Slot extends Physics.Arcade.Sprite implements ISlot {
         this.setInteractive();
         this.on('pointerdown', () => {
             const money = this.scene.data.get("money");
-            if(money < 150){
+            if(money < 300){
                 return;
             }
 
@@ -49,7 +49,7 @@ export class Slot extends Physics.Arcade.Sprite implements ISlot {
                 loop: true
             });
 
-            this.scene.data.inc('money', -150);
+            this.scene.data.inc('money', -300);
         });
     }
 
