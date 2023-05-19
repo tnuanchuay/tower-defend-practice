@@ -1,6 +1,7 @@
 import {Physics, Scene} from "phaser";
 import {Slot} from "./slot";
 import {Monster} from "./monster";
+import {DamageLabel} from "./damageLabel";
 
 export class AttackingObject extends Physics.Arcade.Sprite {
     private readonly monster: Monster;
@@ -30,6 +31,7 @@ export class AttackingObject extends Physics.Arcade.Sprite {
 
         if (this.scene.physics.overlap(this, this.monster)){
             this.monster.getDamage(this.damage);
+            new DamageLabel(this.scene, this.damage, this.x, this.y);
             this.destroy(true);
             return
         }
