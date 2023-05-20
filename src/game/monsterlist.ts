@@ -12,11 +12,11 @@ export const monsterConfig: { [key: string]: MonsterConfig } = {
     },
     "simple2": {
         speed: 0.09,
-        hp: 30
+        hp: 20
     },
     "simple3": {
         speed: 0.08,
-        hp: 50
+        hp: 30
     },
     "boss1": {
         speed: 0.06,
@@ -28,6 +28,6 @@ export const monsterConfig: { [key: string]: MonsterConfig } = {
     },
     "speed2": {
         speed: 0.17,
-        hp: 30
+        hp: 20
     }
 }

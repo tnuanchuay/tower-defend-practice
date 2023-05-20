@@ -26,6 +26,7 @@ export class GameScene extends Scene{
         this.data.set("lives", 5);
         this.data.set("money", 400);
         this.data.set("kills", 0);
+        this.data.set("wave", 1);
     }
 
     update = () => {

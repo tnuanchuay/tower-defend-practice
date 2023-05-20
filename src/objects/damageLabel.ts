@@ -18,6 +18,7 @@ export class DamageLabel extends GameObject {
             duration: 500,
             onComplete: () => {
                 this.text.destroy(true);
+                this.destroy(true);
             },
         });
     }

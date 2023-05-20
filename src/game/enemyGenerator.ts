@@ -53,6 +53,7 @@ export class EnemyGenerator extends GameObject{
             delay: 5000,
             callback: () => {
                 this.currentWave = this.currentWave + 1;
+                this.scene.data.inc("wave");
                 this.currentSection = 0;
                 this.createEnemies();
             },
