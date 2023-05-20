@@ -2,6 +2,7 @@ import { Types, Game } from 'phaser';
 import {GameScene} from "./scenes/gameScene";
 import {GameOver} from "./scenes/gameOver";
 import {GameClear} from "./scenes/gameClear";
+import {BuyingTowerScene} from "./scenes/buyTower";
 
 export const config: Types.Core.GameConfig = {
     width: 840,
@@ -14,7 +15,7 @@ export const config: Types.Core.GameConfig = {
             debug: false,
         },
     },
-    scene: [new GameScene(), new GameOver(), new GameClear()]
+    scene: [new GameScene(), new GameOver(), new GameClear(), new BuyingTowerScene()]
 };
 
 export class MyGame extends Game {

@@ -19,6 +19,8 @@ export class Slot extends GameObject {
                 return;
             }
 
+            this.scene.scene.launch('BuyingTowerScene');
+
             this.tower = new MiddleAgeTower(this.scene, x, y);
             this.scene.data.inc('money', -300);
         });
