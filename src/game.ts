@@ -20,5 +20,6 @@ export const config: Types.Core.GameConfig = {
 export class MyGame extends Game {
     constructor() {
         super(config);
+        this.scale.setZoom(1.5);
     }
 }

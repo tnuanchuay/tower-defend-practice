@@ -13,7 +13,7 @@ export abstract class Tower extends GameObject {
 
     private sprite: Sprite;
 
-    protected constructor(scene: Scene, type: string, radius: number, damage: number, texture: string, x: number, y: number) {
+    protected constructor(scene: Scene, type: string, texture: string, x: number, y: number, radius: number, damage: number, attackSpeed:number) {
         super(scene, type);
 
         this.radius = radius;
@@ -27,7 +27,7 @@ export abstract class Tower extends GameObject {
 
         this.scene.time.addEvent({
             startAt: 0,
-            delay: 1000,
+            delay: attackSpeed,
             callback: this.attack,
             callbackScope: this,
             loop: true
@@ -35,11 +35,11 @@ export abstract class Tower extends GameObject {
     }
 
     attack = () => {
-        const objectInRange = this.scene.physics.overlapCirc(this.sprite.x, this.sprite.y, 150, true, false) as Physics.Arcade.Body[];
+        const objectInRange = this.scene.physics.overlapCirc(this.sprite.x, this.sprite.y, this.radius, true, false) as Physics.Arcade.Body[];
         for (let i = 0; i < objectInRange.length; i++) {
             const t = objectInRange[i].gameObject.getData("type") || "";
             if (t === "monster") {
-                new AttackingObject(this.scene, 'arrow', this, objectInRange[i], 10);
+                new AttackingObject(this.scene, 'arrow', this, objectInRange[i], this.damage);
                 return
             }
         }

@@ -15,12 +15,11 @@ export class Slot extends GameObject {
         this.sprite.setInteractive();
         this.sprite.on('pointerdown', () => {
             const money = this.scene.data.get("money");
-            if (money < 300) {
+            if (money < 300 || this.tower) {
                 return;
             }
 
             this.tower = new MiddleAgeTower(this.scene, x, y);
-            this.sprite.destroy(true);
             this.scene.data.inc('money', -300);
         });
     }
