@@ -3,13 +3,12 @@ import {Waypoint} from "../game/waypoint";
 import Tween = Phaser.Tweens.Tween;
 
 export class Monster extends Physics.Arcade.Sprite {
+    private readonly speed: number;
     private readonly waypoints: Waypoint[];
-    private speed: number;
     private hp: number;
 
     private currentWayPointIndex: number;
     private latestTween: Tween;
-
 
     constructor(scene: Scene, waypoints: Waypoint[], speed: number, hp: number) {
         const {x, y} = waypoints[0];

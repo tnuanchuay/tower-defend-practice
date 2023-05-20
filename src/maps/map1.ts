@@ -417,7 +417,6 @@ export class Map1 extends GameObject implements Map {
         const terrain = scene.add.sprite(0, 0, 'terrain');
         terrain.setOrigin(0, 0);
         this.slots = this.availableSlots.map(i => new Slot(scene, i.x, i.y));
-        this.slots.forEach(i => i.create());
         this.enemyGenerator = new EnemyGenerator(scene, this.waves, this.waypoints);
     }
 }

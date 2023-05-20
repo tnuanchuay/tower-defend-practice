@@ -1,14 +1,14 @@
 import {Physics, Scene} from "phaser";
-import {Slot} from "./slot";
 import {Monster} from "./monster";
 import {DamageLabel} from "./damageLabel";
+import {Tower} from "./towers/Tower";
 
 export class AttackingObject extends Physics.Arcade.Sprite {
     private readonly monster: Monster;
-    private readonly tower: Slot;
+    private readonly tower: Tower;
     private readonly damage: number;
 
-    constructor(scene: Scene, texture: string, tower: Slot, monster: Phaser.Physics.Arcade.Body, damage: number) {
+    constructor(scene: Scene, texture: string, tower: Tower, monster: Phaser.Physics.Arcade.Body, damage: number) {
         const {x, y} = tower;
         super(scene, x, y, texture);
 

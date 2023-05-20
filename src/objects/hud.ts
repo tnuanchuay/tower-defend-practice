@@ -18,7 +18,7 @@ export class HUD {
         this.liveText = this.scene.add.text(750, 610, "Lives: 5");
         this.killText = this.scene.add.text(620, 610, "Kills: 0");
         this.moneyText = this.scene.add.text(470, 610, "Money: 0");
-        this.waveText = this.scene.add.text(20, 610, "Wave: 1");
+        this.waveText = this.scene.add.text(15, 610, "Wave: 1");
     }
 
     update = () => {
