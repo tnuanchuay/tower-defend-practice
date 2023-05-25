@@ -1,6 +1,7 @@
 import {Physics, Scene} from "phaser";
 import {Waypoint} from "../game/waypoint";
 import Tween = Phaser.Tweens.Tween;
+import {Data} from "../constants/gameData";
 
 export class Monster extends Physics.Arcade.Sprite {
     private readonly speed: number;
@@ -40,8 +41,8 @@ export class Monster extends Physics.Arcade.Sprite {
     }
 
     die = () => {
-        this.scene.data.inc("kills");
-        this.scene.data.inc("money", 10);
+        this.scene.data.inc(Data.Kill);
+        this.scene.data.inc(Data.Money, 10);
         this.removeFromUpdateList();
         this.destroy(true);
     }
@@ -50,7 +51,7 @@ export class Monster extends Physics.Arcade.Sprite {
         this.currentWayPointIndex = this.currentWayPointIndex + 1;
 
         if(this.currentWayPointIndex >= this.waypoints.length){
-            this.scene.data.inc("lives", -1);
+            this.scene.data.inc(Data.Live, -1);
             this.destroy(true);
             return
         }

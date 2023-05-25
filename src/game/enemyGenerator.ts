@@ -5,6 +5,8 @@ import {Monster} from "../objects/monster";
 import TimerEvent = Phaser.Time.TimerEvent;
 import {Waypoint} from "./waypoint";
 import {monsterConfig} from "./monsterlist";
+import {SceneName} from "../constants/sceneName";
+import {Data} from "../constants/gameData";
 
 export class EnemyGenerator extends GameObject{
     private waves: Wave[]
@@ -29,7 +31,7 @@ export class EnemyGenerator extends GameObject{
         const enemies = this.scene.children.getChildren().filter(item => item instanceof Monster);
 
         if((this.currentWave === this.waves.length - 1) && this.currentSection === this.waves[this.currentWave].enemies.length - 1 && enemies.length === 0) {
-            this.scene.scene.start('GameClear');
+            this.scene.scene.start(SceneName.GameClearScene);
             return;
         }
 
@@ -53,7 +55,7 @@ export class EnemyGenerator extends GameObject{
             delay: 5000,
             callback: () => {
                 this.currentWave = this.currentWave + 1;
-                this.scene.data.inc("wave");
+                this.scene.data.inc(Data.Wave);
                 this.currentSection = 0;
                 this.createEnemies();
             },
