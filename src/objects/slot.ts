@@ -1,6 +1,6 @@
 import {Scene} from 'phaser';
 import {BaseTower} from "./baseTower";
-import {Data} from "../constants/gameData";
+import {DataKey} from "../constants/gameData";
 import {SceneName} from "../constants/sceneName";
 import GameObject = Phaser.GameObjects.GameObject;
 import Sprite = Phaser.GameObjects.Sprite;
@@ -16,18 +16,16 @@ export class Slot extends GameObject {
         super(scene, "Slot");
         this.x = x;
         this.y = y;
-        this.sprite = scene.add.sprite(x, y, 'available_slot');
-        this.sprite.setOrigin(0, 0);
-        this.sprite.setInteractive();
-        this.sprite.on('pointerdown', () => {
-            const money = this.scene.data.get(Data.Money);
-            if (money < 300 || this.tower) {
-                return;
-            }
+        this.sprite = scene.add.sprite(x, y, 'available_slot')
+            .setOrigin(0, 0)
+            .setInteractive()
+            .on('pointerdown', () => {
+                if (this.tower) {
+                    return;
+                }
 
-            this.scene.scene.launch(SceneName.BuyingTowerScene, {slot: this});
-            this.scene.data.inc(Data.Money, -300);
-        });
+                this.scene.scene.launch(SceneName.BuyingTowerScene, {slot: this});
+            });
     }
 
     setTower = (data: TowerData) => {

@@ -3,7 +3,7 @@ import {HUD} from "../objects/hud";
 import {Map} from '../maps/map';
 import {Map1} from "../maps/map1";
 import {SceneName} from "../constants/sceneName";
-import {Data} from "../constants/gameData";
+import {DataKey} from "../constants/gameData";
 
 export class GameScene extends Scene{
     private hud: HUD;
@@ -25,15 +25,15 @@ export class GameScene extends Scene{
         this.hud = new HUD(this);
         this.map = new Map1(this);
 
-        this.data.set(Data.Live, 5);
-        this.data.set(Data.Money, 400);
-        this.data.set(Data.Kill, 0);
-        this.data.set(Data.Wave, 1);
+        this.data.set(DataKey.Live, 5);
+        this.data.set(DataKey.Money, 400);
+        this.data.set(DataKey.Kill, 0);
+        this.data.set(DataKey.Wave, 1);
     }
 
     update = () => {
         this.hud.update();
-        const lives = this.data.get(Data.Live);
+        const lives = this.data.get(DataKey.Live);
         if(lives <= 0){
             this.scene.start(SceneName.GameOverScene);
         }

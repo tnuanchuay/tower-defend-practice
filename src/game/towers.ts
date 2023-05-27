@@ -16,7 +16,7 @@ export const TowerModels: TowerData[] = [
         attackDamage: 1,
         attackSpeed: 800,
         attackRange: 100,
-        cost: 300,
+        cost: 100,
         attackObjectSprite: 'arrow'
     },
     // Medieval

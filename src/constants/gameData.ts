@@ -1,4 +1,4 @@
-export enum Data {
+export enum DataKey {
     Wave = "wave",
     Live = "live",
     Money = "money",

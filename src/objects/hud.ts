@@ -1,6 +1,6 @@
 import {Scene} from "phaser";
 import Text = Phaser.GameObjects.Text;
-import {Data} from "../constants/gameData";
+import {DataKey} from "../constants/gameData";
 
 export class HUD {
     private readonly scene: Scene;
@@ -23,25 +23,25 @@ export class HUD {
     }
 
     update = () => {
-        const lives = this.scene.data.get(Data.Live);
+        const lives = this.scene.data.get(DataKey.Live);
         if(this.lives != lives){
             this.liveText.setText(`Lives: ${lives}`);
             this.lives = lives
         }
 
-        const money = this.scene.data.get(Data.Money);
+        const money = this.scene.data.get(DataKey.Money);
         if(this.money != money){
             this.moneyText.setText(`Money: ${money}`);
             this.money = money;
         }
 
-        const kills = this.scene.data.get(Data.Kill);
+        const kills = this.scene.data.get(DataKey.Kill);
         if(this.kills != kills){
             this.killText.setText(`Kills: ${kills}`);
             this.kills = kills;
         }
 
-        const wave = this.scene.data.get(Data.Wave);
+        const wave = this.scene.data.get(DataKey.Wave);
         if(this.wave != wave){
             this.waveText.setText(`Wave: ${wave}`);
             this.wave = wave;

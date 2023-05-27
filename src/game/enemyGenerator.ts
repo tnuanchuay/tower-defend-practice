@@ -6,7 +6,7 @@ import TimerEvent = Phaser.Time.TimerEvent;
 import {Waypoint} from "./waypoint";
 import {monsterConfig} from "./monsterlist";
 import {SceneName} from "../constants/sceneName";
-import {Data} from "../constants/gameData";
+import {DataKey} from "../constants/gameData";
 
 export class EnemyGenerator extends GameObject{
     private waves: Wave[]
@@ -55,7 +55,7 @@ export class EnemyGenerator extends GameObject{
             delay: 5000,
             callback: () => {
                 this.currentWave = this.currentWave + 1;
-                this.scene.data.inc(Data.Wave);
+                this.scene.data.inc(DataKey.Wave);
                 this.currentSection = 0;
                 this.createEnemies();
             },
