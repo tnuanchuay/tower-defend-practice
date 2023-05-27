@@ -2,8 +2,9 @@ import {Physics, Scene} from "phaser";
 import GameObject = Phaser.GameObjects.GameObject;
 import {AttackingObject} from "../attackingObject";
 import Sprite = Phaser.GameObjects.Sprite;
+import {Slot} from "../slot";
 
-export abstract class Tower extends GameObject {
+export abstract class BaseTower extends GameObject {
     private readonly radius: number;
     private readonly damage: number;
     private readonly texture: string;

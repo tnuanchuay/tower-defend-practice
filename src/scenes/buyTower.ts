@@ -1,17 +1,26 @@
 import {Scene} from "phaser";
-import Text = Phaser.GameObjects.Text;
 import {SceneName} from "../constants/sceneName";
 import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
+import UIPlugins from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
+import {TowerModels} from "../data/towers";
+import {Slot} from "../objects/slot";
+import {MiddleAgeTower} from "../objects/towers/middleAgeTower";
 
-const COLOR_PRIMARY = 0x000000;
 const COLOR_LIGHT = 0x999999;
+const COLOR_SLIDER = 0x222222;
 const COLOR_DARK = 0x000000;
 
 export class BuyingTowerScene extends Scene {
     rexUI: RexUIPlugin;
 
+    slot: Slot;
+
     constructor() {
         super(SceneName.BuyingTowerScene);
+    }
+
+    init = data => {
+        this.slot = data.slot as Slot;
     }
 
     preload = () => {
@@ -24,18 +33,23 @@ export class BuyingTowerScene extends Scene {
         const scrollablePanel = this.rexUI.add.scrollablePanel({
             x: width / 2,
             y: height / 2,
-            width: 410,
-            height: height * 0.9,
+            width: width * 0.7,
+            height: height * 0.6,
 
             scrollMode: 0,
 
-            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, COLOR_PRIMARY, 0.8),
+            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, COLOR_DARK),
 
             panel: {
                 child: this.createGrid(),
                 mask: {
                     padding: 1,
                 }
+            },
+
+            slider: {
+                track: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, COLOR_SLIDER),
+                thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 13, COLOR_LIGHT),
             },
 
             mouseWheelScroller: {
@@ -47,7 +61,7 @@ export class BuyingTowerScene extends Scene {
                 height: 30,
 
                 orientation: 0,
-                text: this.add.text(0, 0, 'Construct a defend tower !'),
+                text: this.add.text(0, 0, ['Construct a defend tower !']),
                 align: 'center'
             }),
 
@@ -66,12 +80,11 @@ export class BuyingTowerScene extends Scene {
 
         scrollablePanel
             .setChildrenInteractive({})
-            .on('child.click', function (child, pointer, event) {
-                console.log(`Click ${child.text}`);
-            })
-            .on('child.pressstart', function (child, pointer, event) {
-                console.log(`Press ${child.text}`);
-            })
+            .on('child.click', (child, pointer, event) => {
+                this.slot.setTower(MiddleAgeTower);
+                this.game.scene.resume(SceneName.BattleScene);
+                this.scene.stop();
+            });
     }
 
     createGrid = () => {
@@ -89,12 +102,13 @@ export class BuyingTowerScene extends Scene {
         })
             .addBackground(this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, COLOR_DARK))
 
-        for (let i = 0; i < 30; i++) {
-            sizer.add(this.rexUI.add.label({
-                width: 120, height: 120,
+        TowerModels.map(model => {
+            const text = [`$${model.cost}`, `ATK: ${model.attackDamage}`, `RANGE: ${model.attackRange}`, `SPEED: ${model.attackSpeed/1000}s`]
+            return this.rexUI.add.label({
+                width: 150, height: 150,
 
                 background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 14, COLOR_LIGHT),
-                text: this.add.text(0, 0, `${i}`, {
+                text: this.add.text(0, 0, text, {
                     fontSize: 18
                 }),
 
@@ -105,17 +119,15 @@ export class BuyingTowerScene extends Scene {
                     top: 10,
                     bottom: 10,
                 }
-            }));
-        }
+            })
+        })
+            .forEach(label => sizer.add(label));
 
         return sizer;
     }
 
-    createBackdrop = () => {
-        const {width, height} = this.game.canvas;
-        this.game.scene.pause(SceneName.BattleScene);
-        const rec = this.add.rectangle(width / 2, (height - 30) / 2, width - 100, height - 130, 0x000000, 0.8);
-        rec.setOrigin(0.5, 0.5);
+    createTowerLabel = (): UIPlugins.Label => {
+        return this.rexUI.add.label({})
     }
 
     update = () => {
