@@ -5,12 +5,13 @@
   "author": "Tossapon Nuanchuay <tnuanchuay@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start":"webpack serve"
+    "start": "webpack serve"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.1",
     "phaser": "^3.60.0",
+    "phaser3-rex-plugins": "^1.60.1",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
     "webpack": "^5.82.1",
