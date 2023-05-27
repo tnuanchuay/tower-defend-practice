@@ -22,7 +22,7 @@ export class Slot extends GameObject {
             }
 
             // this.scene.scene.launch(SceneName.BuyingTowerScene);
-gs
+
             this.tower = new MiddleAgeTower(this.scene, x, y);
             this.scene.data.inc(Data.Money, -300);
         });
