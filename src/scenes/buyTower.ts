@@ -2,13 +2,15 @@ import {Scene} from "phaser";
 import {SceneName} from "../constants/sceneName";
 import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
 import UIPlugins from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
-import {TowerModels} from "../data/towers";
+import {TowerData, TowerModels} from "../game/towers";
 import {Slot} from "../objects/slot";
-import {MiddleAgeTower} from "../objects/towers/middleAgeTower";
+import {Label} from "phaser3-rex-plugins/templates/ui/ui-components";
 
 const COLOR_LIGHT = 0x999999;
 const COLOR_SLIDER = 0x222222;
 const COLOR_DARK = 0x000000;
+
+const TOWER_DATA_MODEL_KEY = "tower_model"
 
 export class BuyingTowerScene extends Scene {
     rexUI: RexUIPlugin;
@@ -81,9 +83,10 @@ export class BuyingTowerScene extends Scene {
         scrollablePanel
             .setChildrenInteractive({})
             .on('child.click', (child, pointer, event) => {
-                this.slot.setTower(MiddleAgeTower);
-                this.game.scene.resume(SceneName.BattleScene);
-                this.scene.stop();
+                const label = child as Label;
+                const data = label.data.get(TOWER_DATA_MODEL_KEY) as TowerData;
+                this.slot.setTower(data);
+                this.resumeGame();
             });
     }
 
@@ -100,34 +103,39 @@ export class BuyingTowerScene extends Scene {
             },
             align: 'center'
         })
-            .addBackground(this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, COLOR_DARK))
+            .addBackground(this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, COLOR_DARK));
 
-        TowerModels.map(model => {
-            const text = [`$${model.cost}`, `ATK: ${model.attackDamage}`, `RANGE: ${model.attackRange}`, `SPEED: ${model.attackSpeed/1000}s`]
-            return this.rexUI.add.label({
-                width: 150, height: 150,
-
-                background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 14, COLOR_LIGHT),
-                text: this.add.text(0, 0, text, {
-                    fontSize: 18
-                }),
-
-                align: 'center',
-                space: {
-                    left: 10,
-                    right: 10,
-                    top: 10,
-                    bottom: 10,
-                }
-            })
-        })
+        TowerModels
+            .map(model =>
+                this.rexUI.add.label(this.towerLabelConfig(model))
+                    .setData(TOWER_DATA_MODEL_KEY, model)
+            )
             .forEach(label => sizer.add(label));
 
         return sizer;
     }
 
-    createTowerLabel = (): UIPlugins.Label => {
-        return this.rexUI.add.label({})
+    towerLabelConfig = (model: TowerData): Label.IConfig => ({
+        width: 150,
+        height: 150,
+
+        background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 14, COLOR_LIGHT),
+        text: this.add.text(0, 0, [`$${model.cost}`, `ATK: ${model.attackDamage}`, `RANGE: ${model.attackRange}`, `SPEED: ${model.attackSpeed / 1000}s`], {
+            fontSize: 18
+        }),
+
+        align: 'center',
+        space: {
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 10,
+        },
+    })
+
+    resumeGame = () => {
+        this.game.scene.resume(SceneName.BattleScene);
+        this.scene.stop();
     }
 
     update = () => {

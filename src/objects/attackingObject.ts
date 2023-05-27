@@ -1,7 +1,7 @@
 import {Physics, Scene} from "phaser";
 import {Monster} from "./monster";
 import {DamageLabel} from "./damageLabel";
-import {BaseTower} from "./towers/baseTower";
+import {BaseTower} from "./baseTower";
 
 export class AttackingObject extends Physics.Arcade.Sprite {
     private readonly monster: Monster;

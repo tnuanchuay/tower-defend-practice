@@ -1,20 +1,18 @@
 import {Physics, Scene} from "phaser";
 import GameObject = Phaser.GameObjects.GameObject;
-import {AttackingObject} from "../attackingObject";
+import {AttackingObject} from "./attackingObject";
 import Sprite = Phaser.GameObjects.Sprite;
-import {Slot} from "../slot";
+import {Slot} from "./slot";
 
-export abstract class BaseTower extends GameObject {
+export class BaseTower extends GameObject {
+    public readonly x: number;
+    public readonly y: number;
     private readonly radius: number;
     private readonly damage: number;
     private readonly texture: string;
-
-    public readonly x: number;
-    public readonly y: number;
-
     private sprite: Sprite;
 
-    protected constructor(scene: Scene, type: string, texture: string, x: number, y: number, radius: number, damage: number, attackSpeed:number) {
+    constructor(scene: Scene, type: string, texture: string, x: number, y: number, radius: number, damage: number, attackSpeed: number) {
         super(scene, type);
 
         this.radius = radius;

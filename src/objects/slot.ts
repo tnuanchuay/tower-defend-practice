@@ -1,10 +1,10 @@
 import {Scene} from 'phaser';
-import {BaseTower} from "./towers/baseTower";
-import {MiddleAgeTower} from "./towers/middleAgeTower";
+import {BaseTower} from "./baseTower";
 import {Data} from "../constants/gameData";
 import {SceneName} from "../constants/sceneName";
 import GameObject = Phaser.GameObjects.GameObject;
 import Sprite = Phaser.GameObjects.Sprite;
+import {TowerData} from "../game/towers";
 
 export class Slot extends GameObject {
     private tower: BaseTower;
@@ -26,13 +26,11 @@ export class Slot extends GameObject {
             }
 
             this.scene.scene.launch(SceneName.BuyingTowerScene, {slot: this});
-
-            this.tower = new MiddleAgeTower(this.scene, x, y);
             this.scene.data.inc(Data.Money, -300);
         });
     }
 
-    setTower = <T extends BaseTower>(c: { new(Scene, x: number, y: number): T }) => {
-        this.tower = new c(this.scene, this.x, this.y);
+    setTower = (data: TowerData) => {
+        this.tower = new BaseTower(this.scene, data.type, data.sprite, this.x, this.y, data.attackRange, data.attackDamage, data.attackSpeed);
     }
 }
