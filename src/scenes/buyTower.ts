@@ -100,9 +100,14 @@ export class BuyingTowerScene extends Scene {
         scrollablePanel
             .setChildrenInteractive({})
             .on('child.click', (child, pointer, event) => {
-                debugger
+                const money = this.scene.get(SceneName.BattleScene).data.get(DataKey.Money);
                 const label = child as Label;
                 const data = label.data.get(keyTowerDataModel) as TowerData;
+
+                if (money < data.cost) {
+                    return;
+                }
+
                 this.slot.setTower(data);
                 this.scene.get(SceneName.BattleScene).data.inc(DataKey.Money, data.cost * -1);
                 this.resumeGame();

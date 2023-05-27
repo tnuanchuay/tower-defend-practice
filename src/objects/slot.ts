@@ -1,6 +1,5 @@
 import {Scene} from 'phaser';
 import {BaseTower} from "./baseTower";
-import {DataKey} from "../constants/gameData";
 import {SceneName} from "../constants/sceneName";
 import GameObject = Phaser.GameObjects.GameObject;
 import Sprite = Phaser.GameObjects.Sprite;
@@ -29,6 +28,6 @@ export class Slot extends GameObject {
     }
 
     setTower = (data: TowerData) => {
-        this.tower = new BaseTower(this.scene, data.type, data.sprite, this.x, this.y, data.attackRange, data.attackDamage, data.attackSpeed);
+        this.tower = new BaseTower(this.scene, data.type, data.sprite, this.x, this.y, data.attackRange, data.attackDamage, data.attackSpeed, data.attackObjectSprite);
     }
 }

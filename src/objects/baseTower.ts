@@ -10,19 +10,21 @@ export class BaseTower extends GameObject {
     private readonly radius: number;
     private readonly damage: number;
     private readonly texture: string;
+    private readonly attackObjectSprite: string;
     private sprite: Sprite;
 
-    constructor(scene: Scene, type: string, texture: string, x: number, y: number, radius: number, damage: number, attackSpeed: number) {
-        super(scene, type);
 
+    constructor(scene: Scene, type: string, texture: string, x: number, y: number, radius: number, damage: number, attackSpeed: number, attackObjectSprite: string) {
+        super(scene, type);
+        this.x = x;
+        this.y = y;
         this.radius = radius;
         this.damage = damage;
         this.texture = texture;
+        this.attackObjectSprite = attackObjectSprite;
 
-        this.sprite = this.scene.add.sprite(x, y, texture);
-        this.sprite.setOrigin(0, 0);
-        this.x = x;
-        this.y = y;
+        this.sprite = this.scene.add.sprite(x, y, texture)
+            .setOrigin(0, 0);
 
         this.scene.time.addEvent({
             startAt: 0,
@@ -38,7 +40,7 @@ export class BaseTower extends GameObject {
         for (let i = 0; i < objectInRange.length; i++) {
             const t = objectInRange[i].gameObject.getData("type") || "";
             if (t === "monster") {
-                new AttackingObject(this.scene, 'arrow', this, objectInRange[i], this.damage);
+                new AttackingObject(this.scene, this.attackObjectSprite, this, objectInRange[i], this.damage);
                 return
             }
         }

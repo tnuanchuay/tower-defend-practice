@@ -9,25 +9,14 @@ export interface TowerData {
 }
 
 export const TowerModels: TowerData[] = [
-    // Ancient
     {
         type: "AncientTower",
-        sprite: 'tower',
-        attackDamage: 1,
-        attackSpeed: 800,
+        sprite: 'ancient_tower',
+        attackDamage: 5,
+        attackSpeed: 500,
         attackRange: 100,
         cost: 100,
-        attackObjectSprite: 'arrow'
-    },
-    // Medieval
-    {
-        type: "Catapult",
-        sprite: 'tower',
-        attackDamage: 10,
-        attackSpeed: 1500,
-        attackRange: 150,
-        cost: 300,
-        attackObjectSprite: 'arrow'
+        attackObjectSprite: 'rock'
     },
     {
         type: "Medieval",
@@ -38,60 +27,11 @@ export const TowerModels: TowerData[] = [
         cost: 300,
         attackObjectSprite: 'arrow'
     },
-    // Ancient
-    {
-        type: "AncientTower",
-        sprite: 'tower',
-        attackDamage: 1,
-        attackSpeed: 800,
-        attackRange: 100,
-        cost: 100,
-        attackObjectSprite: 'arrow'
-    },
-    // Medieval
     {
         type: "Catapult",
         sprite: 'tower',
         attackDamage: 10,
         attackSpeed: 1500,
-        attackRange: 150,
-        cost: 300,
-        attackObjectSprite: 'arrow'
-    },
-    {
-        type: "Medieval",
-        sprite: 'tower',
-        attackDamage: 10,
-        attackSpeed: 1000,
-        attackRange: 150,
-        cost: 300,
-        attackObjectSprite: 'arrow'
-    },
-    // Ancient
-    {
-        type: "AncientTower",
-        sprite: 'tower',
-        attackDamage: 1,
-        attackSpeed: 800,
-        attackRange: 100,
-        cost: 100,
-        attackObjectSprite: 'arrow'
-    },
-    // Medieval
-    {
-        type: "Catapult",
-        sprite: 'tower',
-        attackDamage: 10,
-        attackSpeed: 1500,
-        attackRange: 150,
-        cost: 300,
-        attackObjectSprite: 'arrow'
-    },
-    {
-        type: "Medieval",
-        sprite: 'tower',
-        attackDamage: 10,
-        attackSpeed: 1000,
         attackRange: 150,
         cost: 300,
         attackObjectSprite: 'arrow'

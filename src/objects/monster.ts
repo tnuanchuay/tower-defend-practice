@@ -1,5 +1,5 @@
 import {Physics, Scene} from "phaser";
-import {Waypoint} from "../game/waypoint";
+import {Waypoint} from "../game/models/waypoint";
 import Tween = Phaser.Tweens.Tween;
 import {DataKey} from "../constants/gameData";
 
